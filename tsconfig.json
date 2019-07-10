@@ -18,6 +18,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular-toastify": [
+        "dist/angular-toastify"
+      ],
+      "angular-toastify/*": [
+        "dist/angular-toastify/*"
+      ]
+    }
   }
 }
