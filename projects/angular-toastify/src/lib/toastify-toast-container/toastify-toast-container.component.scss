@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+@import "../../styles/variables";
+@import "../../styles/toastContainer";
+@import "../../styles/toast";
+
+// animations
+@import "../../styles/animations/bounce.scss";
+@import "../../styles/animations/zoom.scss";
+@import "../../styles/animations/flip.scss";
+@import "../../styles/animations/slide.scss";

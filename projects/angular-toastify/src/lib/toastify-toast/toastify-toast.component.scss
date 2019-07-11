@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+@import "../../styles/variables";
+
+@import "../../styles/toast";
+@import "../../styles/closeButton";
+@import "../../styles/progressBar";
+
+
+
+.icon-container {
+    margin-right: 0.5rem;
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+
+    i {
+        vertical-align: middle;
+    }
+}
+
+.material-icons,
+.fa {
+    font-size: 18px;
+}

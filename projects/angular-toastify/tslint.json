@@ -1,16 +1,27 @@
 {
   "extends": "../../tslint.json",
   "rules": {
+    "align": [
+      true,
+      "statements",
+      "members",
+      "elements"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "allow-leading-underlevel"
+    ],
     "directive-selector": [
       true,
       "attribute",
-      "lib",
+      "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "lib",
+      "app",
       "kebab-case"
     ]
   }

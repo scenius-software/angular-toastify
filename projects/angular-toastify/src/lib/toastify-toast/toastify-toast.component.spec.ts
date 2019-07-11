@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AngularToastifyComponent } from './angular-toastify.component';
+import { ToastifyToastComponent } from './toastify-toast.component';
 
-describe('AngularToastifyComponent', () => {
-  let component: AngularToastifyComponent;
-  let fixture: ComponentFixture<AngularToastifyComponent>;
+describe('ToastifyToastComponent', () => {
+  let component: ToastifyToastComponent;
+  let fixture: ComponentFixture<ToastifyToastComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AngularToastifyComponent ]
+      declarations: [ ToastifyToastComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AngularToastifyComponent);
+    fixture = TestBed.createComponent(ToastifyToastComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

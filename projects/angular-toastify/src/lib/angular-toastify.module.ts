@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { AngularToastifyComponent } from './angular-toastify.component';
+import { ToastifyToastComponent } from './toastify-toast/toastify-toast.component';
+import { ToastifyToastContainerComponent } from './toastify-toast-container/toastify-toast-container.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-  declarations: [AngularToastifyComponent],
-  imports: [
-  ],
-  exports: [AngularToastifyComponent]
+  declarations: [ToastifyToastComponent, ToastifyToastContainerComponent],
+  imports: [BrowserModule],
+  exports: [ToastifyToastContainerComponent]
 })
 export class AngularToastifyModule { }

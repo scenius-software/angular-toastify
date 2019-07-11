@@ -1,0 +1,117 @@
+@mixin transform {
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translate3d(110%, 0, 0);
+        visibility: visible;
+    }
+    to {
+        @include transform;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translate3d(-110%, 0, 0);
+        visibility: visible;
+    }
+    to {
+        @include transform;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate3d(0, 110%, 0);
+        visibility: visible;
+    }
+    to {
+        @include transform;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translate3d(0, -110%, 0);
+        visibility: visible;
+    }
+    to {
+        @include transform;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        @include transform;
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(110%, 0, 0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        @include transform;
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(-110%, 0, 0);
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        @include transform;
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(0, 500px, 0);
+    }
+}
+
+@keyframes slideOutUp {
+    from {
+        @include transform;
+    }
+    to {
+        visibility: hidden;
+        transform: translate3d(0, -500px, 0);
+    }
+}
+
+.slide-enter {
+    &--top-left,
+    &--bottom-left {
+        animation-name: slideInLeft;
+    }
+    &--top-right,
+    &--bottom-right {
+        animation-name: slideInRight;
+    }
+    &--top-center {
+        animation-name: slideInDown;
+    }
+    &--bottom-center {
+        animation-name: slideInUp;
+    }
+}
+
+.slide-exit {
+    &--top-left,
+    &--bottom-left {
+        animation-name: slideOutLeft;
+    }
+    &--top-right,
+    &--bottom-right {
+        animation-name: slideOutRight;
+    }
+    &--top-center {
+        animation-name: slideOutUp;
+    }
+    &--bottom-center {
+        animation-name: slideOutDown;
+    }
+}

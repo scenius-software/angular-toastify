@@ -1,0 +1,72 @@
+<lib-toastify-toast-container [position]="position" [transition]="transition" [autoClose]="disableAutoClose? 0 : autoClose"
+    [hideProgressBar]="hideProgress" [newestOnTop]="newestOnTop" [closeOnClick]="closeOnClick" [pauseOnHover]="pauseDelayHover"
+    [pauseOnVisibilityChange]="pauseVisibilityChange" [iconLibrary]="iconLibrary">
+</lib-toastify-toast-container>
+
+<div class="row center-xs main">
+    <mat-card>
+        <mat-card-title>Angular Toastify</mat-card-title>
+        <mat-card-subtitle>Inspired by <a target="_blank" href="https://github.com/fkhadra/react-toastify">React Toastify</a></mat-card-subtitle>
+        <mat-card-content style="text-align: left">
+            <div>
+                <mat-checkbox [(ngModel)]="disableAutoClose">Disable auto close</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="hideProgress">Hide progress bar</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="closeOnClick">Close on click</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="pauseDelayHover">Pause close delay on hover</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="pauseVisibilityChange">Pause on visibility change</mat-checkbox>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <input matInput type="number" min="0" [(ngModel)]="autoClose">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Position</mat-label>
+                    <mat-select [(ngModel)]="position">
+                        <mat-option *ngFor="let position of positions" [value]="position">
+                            {{position}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Transition</mat-label>
+                    <mat-select [(ngModel)]="transition">
+                        <mat-option *ngFor="let transition of transitions" [value]="transition">
+                            {{transition}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Icon library</mat-label>
+                    <mat-select [(ngModel)]="iconLibrary">
+                        <mat-option *ngFor="let iconLibrary of iconLibraries" [value]="iconLibrary">
+                            {{iconLibrary}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <button style="width: 100%" mat-stroked-button (click)="addSuccessToast()">Success</button>
+                <button style="width: 100%" mat-stroked-button (click)="addErrorToast()">Error</button>
+                <button style="width: 100%" mat-stroked-button (click)="addWarnToast()">Warn</button>
+                <button style="width: 100%" mat-stroked-button (click)="addInfoToast()">Info</button>
+                <button style="width: 100%" mat-stroked-button (click)="addDefaultToast()">Default</button>
+                <button style="width: 100%" mat-stroked-button (click)="addAllToasts()">All</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

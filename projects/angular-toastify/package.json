@@ -1,8 +1,19 @@
 {
   "name": "angular-toastify",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Somewhat working clone of React Toastify.",
+  "author": "Scenius",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scenius-software/angular-toastify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scenius-software/angular-toastify/issues"
+  },
+  "homepage": "https://github.com/scenius-software/angular-toastify",
   "peerDependencies": {
     "@angular/common": "^8.0.3",
     "@angular/core": "^8.0.3"
-  }
+  },
+  "license": "MIT"
 }
