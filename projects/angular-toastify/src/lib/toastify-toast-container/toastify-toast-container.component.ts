@@ -11,7 +11,7 @@ import { ToastType } from '../toast-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastifyToastContainerComponent implements OnInit, OnChanges {
-  private readonly transitionDurations = 1000;
+  private readonly transitionDurations = 400;
 
   @Input() position: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left' = 'top-right';
   @Input() transition: 'bounce' | 'slide' | 'zoom' | 'flip' = 'bounce';
@@ -34,7 +34,7 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
   }
 
   dismiss(toast: Toast): void {
-    this.toastTransitionDict[toast.time] = TransitionState.exiting;
+    this.toastTransitionDict[toast.id] = TransitionState.exiting;
     setTimeout(() => {
       const index = this.toasts.indexOf(toast);
       this.toasts.splice(index, 1);
@@ -44,11 +44,13 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
 
   getClass(toast: Toast): string {
     let base = `toast toast--${ToastType[toast.type]} `;
-    if (this.toastTransitionDict[toast.time] === TransitionState.entering) {
+    const state = this.toastTransitionDict[toast.id];
+    if (state === TransitionState.entering) {
       base += `${this.transition}-enter ${this.transition}-enter--${this.position}`;
-    } else if (this.toastTransitionDict[toast.time] === TransitionState.exiting) {
+    } else if (state === TransitionState.exiting) {
       base += `${this.transition}-exit ${this.transition}-exit--${this.position}`;
     }
+
     return base;
   }
 
@@ -59,9 +61,9 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
     });
 
     this._toastService.toastAddedEvent.subscribe(toast => {
-      this.toastTransitionDict[toast.time] = TransitionState.entering;
+      this.toastTransitionDict[toast.id] = TransitionState.entering;
       setTimeout(() => {
-        this.toastTransitionDict[toast.time] = TransitionState.noTransition;
+        this.toastTransitionDict[toast.id] = TransitionState.noTransition;
         this._cd.markForCheck();
       }, this.transitionDurations);
 
