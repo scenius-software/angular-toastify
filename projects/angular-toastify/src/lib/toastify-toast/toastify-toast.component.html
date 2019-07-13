@@ -1,19 +1,23 @@
-<div role="alert" class="toast-body" style=" vertical-align:middle;">
-    <span class="icon-container" *ngIf="iconLibrary == 'material'" [ngSwitch]="toast.type">
-        <i class="material-icons" *ngSwitchCase="ToastType.info">info_outline</i>
-        <i class="material-icons" *ngSwitchCase="ToastType.default">info_outline</i>
-        <i class="material-icons" *ngSwitchCase="ToastType.warning">warning_outline</i>
-        <i class="material-icons" *ngSwitchCase="ToastType.error">error_outline</i>
-        <i class="material-icons" *ngSwitchCase="ToastType.success">done</i>
-    </span>
-    <span class="icon-container" *ngIf="iconLibrary == 'font-awesome'" [ngSwitch]="toast.type">
-        <i *ngSwitchCase="ToastType.info" class="fa fa-info"></i>
-        <i *ngSwitchCase="ToastType.default" class="fa fa-info"></i>
-        <i *ngSwitchCase="ToastType.warning" class="fa fa-exclamation-triangle"></i>
-        <i *ngSwitchCase="ToastType.error" class="fa fa-exclamation"></i>
-        <i *ngSwitchCase="ToastType.success" class="fa fa-check"></i>
-    </span>
-    <span>{{toast.message}}</span>
+<div role="alert" class="toast-body">
+    <div class="icon-container">
+        <span *ngIf="iconLibrary == 'material'" [ngSwitch]="toast.type">
+            <i class="material-icons" *ngSwitchCase="ToastType.info">info_outline</i>
+            <i class="material-icons" *ngSwitchCase="ToastType.default">info_outline</i>
+            <i class="material-icons" *ngSwitchCase="ToastType.warning">warning_outline</i>
+            <i class="material-icons" *ngSwitchCase="ToastType.error">error_outline</i>
+            <i class="material-icons" *ngSwitchCase="ToastType.success">done</i>
+        </span>
+        <span *ngIf="iconLibrary == 'font-awesome'" [ngSwitch]="toast.type">
+            <i *ngSwitchCase="ToastType.info" class="fa fa-info"></i>
+            <i *ngSwitchCase="ToastType.default" class="fa fa-info"></i>
+            <i *ngSwitchCase="ToastType.warning" class="fa fa-exclamation-triangle"></i>
+            <i *ngSwitchCase="ToastType.error" class="fa fa-exclamation"></i>
+            <i *ngSwitchCase="ToastType.success" class="fa fa-check"></i>
+        </span>
+    </div>
+    <div class="toast-container">
+        <span>{{toast.message}}</span>
+    </div>
 </div>
 <button (click)="handleDismissButtonAction()" class="close-button close-button--{{ToastType[toast.type]}}" type="button" aria-label="close">✖</button>
 <div *ngIf="!hideProgressBar" class="progress-bar progress-bar--{{ToastType[toast.type]}}"
