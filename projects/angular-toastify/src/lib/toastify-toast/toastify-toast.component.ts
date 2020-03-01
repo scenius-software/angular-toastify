@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Input, HostListener, Output, EventEmitter,
-  OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, NgZone, OnDestroy, OnInit, Output
 } from '@angular/core';
 import { ToastType } from '../toast-type';
 import { Toast } from '../toast';
@@ -33,7 +32,8 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   ToastType = ToastType;
   running = false;
 
-  constructor(private _cd: ChangeDetectorRef) { }
+  constructor(private _cd: ChangeDetectorRef, private _zone: NgZone) {
+  }
 
   ngOnInit(): void {
     this.autoCloseRemaining = this.autoClose;
@@ -55,10 +55,13 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
     this.startTime = new Date().getTime();
     this.running = true;
-    this.autoDismissTimeout = setTimeout(() => {
-      this.dismissEvent.emit();
-      this._cd.markForCheck();
-    }, this.autoCloseRemaining);
+    this.autoDismissTimeout = this._zone.runOutsideAngular(() =>
+      setTimeout(() => {
+        this._zone.run(() => {
+          this.dismissEvent.emit();
+          this._cd.markForCheck();
+        });
+      }, this.autoCloseRemaining));
   }
 
   pauseCloseTimer(): void {
