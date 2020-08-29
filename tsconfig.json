@@ -27,5 +27,8 @@
         "dist/angular-toastify/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

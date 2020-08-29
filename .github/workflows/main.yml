@@ -27,7 +27,7 @@ jobs:
       - name: Set Version
         run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$BUILD_NUMBER/g" ./version.ts
       - name: Build Library
-        run: ng build --project angular-toastify --prod
+        run: ng build --project angular-toastify
       - name: Publish Library to NPM
         run: npm publish ./dist/angular-toastify
         env:
