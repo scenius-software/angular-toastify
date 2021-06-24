@@ -19,7 +19,6 @@
           "skipTests": true
         },
         "@schematics/angular:module": {
-          "skipTests": true
         },
         "@schematics/angular:pipe": {
           "skipTests": true
@@ -40,12 +39,15 @@
             "main": "projects/demo/src/main.ts",
             "polyfills": "projects/demo/src/polyfills.ts",
             "tsConfig": "projects/demo/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/demo/src/favicon.ico",
               "projects/demo/src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "projects/demo/src/styles.scss"
             ],
             "scripts": []
@@ -134,9 +136,6 @@
   },
   "defaultProject": "demo",
   "schematics": {
-    "@schematics/angular:component": {
-      "styleext": "scss"
-    }
   },
   "cli": {
     "analytics": "ef46b4b8-e6e3-4014-8045-1f442030bb02"
