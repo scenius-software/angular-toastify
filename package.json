@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build --project demo --configuration production --base-href=https://scenius-software.github.io/angular-toastify/ --output-path=./docs && ng deploy --base-href=/angular-toastify/ --no-silent"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +38,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^5.0.0",
     "injection-js": "^2.4.0",
     "jasmine-core": "~3.4.0",

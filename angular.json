@@ -18,8 +18,7 @@
         "@schematics/angular:guard": {
           "skipTests": true
         },
-        "@schematics/angular:module": {
-        },
+        "@schematics/angular:module": {},
         "@schematics/angular:pipe": {
           "skipTests": true
         },
@@ -63,7 +62,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -95,6 +93,10 @@
           "options": {
             "browserTarget": "demo:build"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -135,8 +137,7 @@
     }
   },
   "defaultProject": "demo",
-  "schematics": {
-  },
+  "schematics": {},
   "cli": {
     "analytics": "ef46b4b8-e6e3-4014-8045-1f442030bb02"
   }
