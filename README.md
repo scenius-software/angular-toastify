@@ -6,7 +6,7 @@
 # Angular Toastify
 A somewhat minimalistic clone of [React Toastify](https://github.com/fkhadra/react-toastify).
 
-This project was build on Angular version 8.0.3.
+This project was build on Angular version 12.0.5
 
 [Demo!](https://scenius-software.github.io/angular-toastify/)
 
@@ -66,4 +66,15 @@ Add to component or service:
     this._toastService.info('message');
  }
 ```
+
+# Changelog
+
+##### 1.0.4
+
+- Module no longer imports `BrowserModule`. Angular Toastify can now be used in submodules.
+- Updated to Angular 12
+
+##### 1.0.2
+
+- Run toast outside Angular so they do not delay Protractor tests.
 
