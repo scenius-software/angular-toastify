@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
-      - uses: einaregilsson/build-number@v2
-        with:
-          token: ${{secrets.github_token}}
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -25,7 +22,7 @@ jobs:
           npm uninstall -g @angular/cli
           npm install -g @angular/cli
       - name: Set Version
-        run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$BUILD_NUMBER/g" ./version.ts
+        run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$GITHUB_RUN_NUMBER/g" ./version.ts
       - name: Build Library
         run: ng build --project angular-toastify
       - name: Publish Library to NPM
