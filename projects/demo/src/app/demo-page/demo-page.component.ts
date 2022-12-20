@@ -64,4 +64,8 @@ export class DemoPageComponent  {
     this.addSuccessToast();
     this.addDefaultToast();
   }
+
+  addConstantToast() {
+    this._toastService.default('This is a toast message with constant text');
+  }
 }

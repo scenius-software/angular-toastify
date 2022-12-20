@@ -23,8 +23,11 @@
             <div>
                 <mat-checkbox [(ngModel)]="pauseVisibilityChange">Pause on visibility change</mat-checkbox>
             </div>
-
             <div>
+                <mat-checkbox [(ngModel)]="preventDuplicates">Prevent duplicate toasts with identical texts</mat-checkbox>
+            </div>
+
+          <div>
                 <mat-form-field>
                     <input matInput type="number" min="0" [(ngModel)]="autoClose">
                 </mat-form-field>
@@ -71,6 +74,7 @@
                 <button style="width: 100%" mat-stroked-button (click)="addWarnToast()">Warn</button>
                 <button style="width: 100%" mat-stroked-button (click)="addInfoToast()">Info</button>
                 <button style="width: 100%" mat-stroked-button (click)="addDefaultToast()">Default</button>
+                <button style="width: 100%" mat-stroked-button (click)="addConstantToast()">Constant Text</button>
                 <button style="width: 100%" mat-stroked-button (click)="addAllToasts()">All</button>
             </div>
         </mat-card-content>
