@@ -21,6 +21,7 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
   @Input() pauseOnVisibilityChange = true;
   @Input() closeOnClick = true;
   @Input() newestOnTop = false;
+  @Input() preventDuplicates = false;
   @Input() iconLibrary: 'material' | 'font-awesome' | 'none' = 'none';
 
   ToastType = ToastType;
@@ -60,20 +61,35 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
       this._cd.markForCheck();
     });
 
-    this._toastService.toastAddedEvent.subscribe(toast => {
-      this.toastTransitionDict[toast.id] = TransitionState.entering;
-      setTimeout(() => {
-        this.toastTransitionDict[toast.id] = TransitionState.noTransition;
-        this._cd.markForCheck();
-      }, this.transitionDurations);
+    this._toastService.toastAddedEvent.subscribe((toast: Toast) => this.handleToastAddedEvent(toast));
+  }
 
-      if (this.newestOnTop) {
-        this.toasts.unshift(toast);
-      } else {
-        this.toasts.push(toast);
+  handleToastAddedEvent(toast: Toast): void {
+    // If "preventDuplicates" is enabled, toast is not added if one toast with same message exists
+    // The only thing to do is to update the toast time to keep it visible 
+    if(this.preventDuplicates === true) {
+      const sameToast: Toast = this.toasts.find((existingToast) => existingToast.message === toast.message);
+      if (sameToast) {
+        sameToast.time = new Date().getTime(); 
+        this._cd.markForCheck();
+        return;
       }
+    }
+
+    // Add transition
+    this.toastTransitionDict[toast.id] = TransitionState.entering;
+    setTimeout(() => {
+      this.toastTransitionDict[toast.id] = TransitionState.noTransition;
       this._cd.markForCheck();
-    });
+    }, this.transitionDurations);
+
+    // Add toast
+    if (this.newestOnTop) {
+      this.toasts.unshift(toast);
+    } else {
+      this.toasts.push(toast);
+    }
+    this._cd.markForCheck();
   }
 }
 
