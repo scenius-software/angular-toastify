@@ -6,7 +6,7 @@ export class Toast {
     id: number;
     message: string;
     type: ToastType;
-    time: number;
+    readonly time: number;
 
     constructor(message: string, type: ToastType) {
         this.message = message;
