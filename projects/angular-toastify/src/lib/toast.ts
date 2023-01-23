@@ -7,7 +7,7 @@ export class Toast {
     id: number;
     message: string;
     type: ToastType;
-    time: number;
+    readonly time: number;
 
     $resetToast: Subject<any>;
 

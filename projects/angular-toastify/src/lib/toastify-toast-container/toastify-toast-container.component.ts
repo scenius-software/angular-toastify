@@ -76,14 +76,14 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
       }
     }
 
-    // Add transition
+    // Add new toast transition
     this.toastTransitionDict[toast.id] = TransitionState.entering;
     setTimeout(() => {
       this.toastTransitionDict[toast.id] = TransitionState.noTransition;
       this._cd.markForCheck();
     }, this.transitionDurations);
 
-    // Add toast
+    // Add new toast
     if (this.newestOnTop) {
       this.toasts.unshift(toast);
     } else {
