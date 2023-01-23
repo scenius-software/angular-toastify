@@ -66,11 +66,11 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
 
   handleToastAddedEvent(toast: Toast): void {
     // If "preventDuplicates" is enabled, toast is not added if one toast with same message exists
-    // The only thing to do is to update the toast time to keep it visible 
+    // The only thing to do is to update the toast time to keep it visible
     if(this.preventDuplicates === true) {
       const sameToast: Toast = this.toasts.find((existingToast) => existingToast.message === toast.message);
       if (sameToast) {
-        sameToast.time = new Date().getTime(); 
+        sameToast.$resetToast.next();
         this._cd.markForCheck();
         return;
       }

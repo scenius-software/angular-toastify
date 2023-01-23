@@ -3,13 +3,15 @@ import {
 } from '@angular/core';
 import { ToastType } from '../toast-type';
 import { Toast } from '../toast';
+import { interval } from 'rxjs';
+import { throttle, throttleTime } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'lib-toastify-toast',
   templateUrl: './toastify-toast.component.html',
   styleUrls: ['./toastify-toast.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastifyToastComponent implements OnInit, OnDestroy {
 
@@ -28,6 +30,9 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
   private pauseTime: number;
   private startTime: number;
+  private originalStartTime: number;
+  private _$updateTimer;
+  private _closetimeRemaining;
 
   ToastType = ToastType;
   running = false;
@@ -37,7 +42,15 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.autoCloseRemaining = this.autoClose;
+    this._closetimeRemaining = this.autoClose;
     this.startTime = this.toast.time;
+    this.originalStartTime = this.toast.time;
+    this.toast.$resetToast.subscribe(() => this.resetToastTimer());
+    this._$updateTimer = interval(1)
+      .subscribe(() => {
+        this._closetimeRemaining -= 1;
+        this._cd.markForCheck();
+      });
     // Do not start timer when toast is prompted while window is out of focus
     if (this.handleVisibilityChange && document.visibilityState === 'visible') {
       this.startCloseTimer();
@@ -46,6 +59,10 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearTimerTimeout();
+    this.toast.$resetToast.complete();
+    this.toast.$resetToast = null;
+    this._$updateTimer.complete();
+    this._$updateTimer = null;
   }
 
   startCloseTimer(): void {
@@ -53,7 +70,6 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.startTime = new Date().getTime();
     this.running = true;
     this.autoDismissTimeout = this._zone.runOutsideAngular(() =>
       setTimeout(() => {
@@ -71,7 +87,15 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     // Calculate the elapsed time, subtract remaining time
     this.pauseTime = new Date().getTime();
     const elapsed = this.pauseTime - this.startTime;
-    this.autoCloseRemaining -= elapsed;
+    this.autoCloseRemaining = this.autoClose - elapsed;
+  }
+
+  resetToastTimer() {
+    this.clearTimerTimeout();
+    this.running = false;
+    this.startTime = new Date().getTime();
+    this.autoCloseRemaining = this.autoClose;
+    this.startCloseTimer();
   }
 
   clearTimerTimeout(): void {
@@ -87,6 +111,14 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
     this.clearTimerTimeout();
     this.dismissEvent.emit();
+  }
+
+  loadingBarWidth(): number {
+    if (this.running) {
+      return (((((new Date()).getTime()) - this.startTime) / this.autoClose) * 100);
+    } else {
+      return ((this.pauseTime - this.startTime) / this.autoClose) * 100;
+    }
   }
 
   @HostListener('click')
@@ -108,6 +140,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   handleMouseLeave(): void {
     if (this.pauseOnHover) {
       this.startCloseTimer();
+      this.startTime = new Date().getTime() + (this.startTime - this.pauseTime);
     }
   }
 
