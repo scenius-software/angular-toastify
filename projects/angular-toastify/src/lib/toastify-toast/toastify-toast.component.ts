@@ -1,19 +1,31 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, NgZone, OnDestroy, OnInit, Output
-} from '@angular/core';
-import { ToastType } from '../toast-type';
-import { Toast } from '../toast';
-import { interval } from 'rxjs';
-import { throttle, throttleTime } from 'rxjs/operators';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { ToastType } from "../toast-type";
+import { Toast } from "../toast";
+import { interval } from "rxjs";
+import { throttle, throttleTime } from "rxjs/operators";
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'lib-toastify-toast',
-  templateUrl: './toastify-toast.component.html',
-  styleUrls: ['./toastify-toast.component.scss'],
+  selector: "lib-toastify-toast",
+  templateUrl: "./toastify-toast.component.html",
+  styleUrls: ["./toastify-toast.component.scss"],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastifyToastComponent implements OnInit, OnDestroy {
+  @ViewChild("progressBar") progressBar: ElementRef<HTMLElement>;
 
   @Input() autoClose = 5000;
   @Input() hideProgressBar = false;
@@ -21,47 +33,69 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   @Input() pauseOnVisibilityChange = true;
   @Input() closeOnClick = true;
   @Input() toast: Toast;
-  @Input() iconLibrary: 'material' | 'font-awesome' | 'none';
+  @Input() iconLibrary: "material" | "font-awesome" | "none";
 
   @Output() dismissEvent = new EventEmitter();
 
+  private expectedAutoDismissTime: number;
   private autoDismissTimeout: any;
   private autoCloseRemaining: number;
 
   private pauseTime: number;
   private startTime: number;
-  private originalStartTime: number;
+
+  private _progressBarAnimation: number;
   private _$updateTimer;
-  private _closetimeRemaining;
 
   ToastType = ToastType;
   running = false;
 
-  constructor(private _cd: ChangeDetectorRef, private _zone: NgZone) {
-  }
+  constructor(private _cd: ChangeDetectorRef, private _zone: NgZone) {}
 
   ngOnInit(): void {
     this.autoCloseRemaining = this.autoClose;
-    this._closetimeRemaining = this.autoClose;
     this.startTime = this.toast.time;
-    this.originalStartTime = this.toast.time;
     this.toast.$resetToast.subscribe(() => this.resetToastTimer());
-    this._$updateTimer = interval(1)
-      .subscribe(() => {
-        this._closetimeRemaining -= 1;
-        this._cd.markForCheck();
-      });
     // Do not start timer when toast is prompted while window is out of focus
-    if (this.handleVisibilityChange && document.visibilityState === 'visible') {
+    if (this.handleVisibilityChange && document.visibilityState === "visible") {
       this.startCloseTimer();
     }
+
+    // Start progress bar animation
+    this.triggerProgressBarAnimation();
+  }
+
+  private triggerProgressBarAnimation(): void {
+    // Cancel previous animlation to avoid leaks
+    if (this._progressBarAnimation !== undefined) {
+      cancelAnimationFrame(this._progressBarAnimation);
+    }
+
+    // Start animation
+    const frame = () => {
+      if (this.running) {
+        const remainingTime = Math.max(0, this.expectedAutoDismissTime - new Date().getTime());
+        const percentage = (remainingTime / this.autoClose) * 100;
+        this.progressBar.nativeElement.style.width = percentage + "%";
+        if (percentage <= 0) return;
+      }
+      this._progressBarAnimation = requestAnimationFrame(frame);
+    };
+    this._progressBarAnimation = requestAnimationFrame(frame);
   }
 
   ngOnDestroy(): void {
+    // Cancel animation
+    if (this._progressBarAnimation) {
+      cancelAnimationFrame(this._progressBarAnimation);
+      this._progressBarAnimation = undefined;
+    }
+    // Clear auto close timeout
     this.clearTimerTimeout();
-    this.toast.$resetToast.complete();
+    // Complete all observables
+    this.toast.$resetToast?.complete();
     this.toast.$resetToast = null;
-    this._$updateTimer.complete();
+    this._$updateTimer?.complete();
     this._$updateTimer = null;
   }
 
@@ -71,13 +105,16 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     }
 
     this.running = true;
+    this.expectedAutoDismissTime =
+      new Date().getTime() + this.autoCloseRemaining;
     this.autoDismissTimeout = this._zone.runOutsideAngular(() =>
       setTimeout(() => {
         this._zone.run(() => {
           this.dismissEvent.emit();
           this._cd.markForCheck();
         });
-      }, this.autoCloseRemaining));
+      }, this.autoCloseRemaining)
+    );
   }
 
   pauseCloseTimer(): void {
@@ -100,6 +137,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
 
   clearTimerTimeout(): void {
     if (this.autoDismissTimeout !== undefined) {
+      this.expectedAutoDismissTime = undefined;
       clearTimeout(this.autoDismissTimeout);
     }
   }
@@ -113,15 +151,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     this.dismissEvent.emit();
   }
 
-  loadingBarWidth(): number {
-    if (this.running) {
-      return (((((new Date()).getTime()) - this.startTime) / this.autoClose) * 100);
-    } else {
-      return ((this.pauseTime - this.startTime) / this.autoClose) * 100;
-    }
-  }
-
-  @HostListener('click')
+  @HostListener("click")
   handleHostClick(): void {
     if (this.closeOnClick) {
       this.clearTimerTimeout();
@@ -129,14 +159,14 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('mouseenter')
+  @HostListener("mouseenter")
   handleMouseEnter(): void {
     if (this.pauseOnHover) {
       this.pauseCloseTimer();
     }
   }
 
-  @HostListener('mouseleave')
+  @HostListener("mouseleave")
   handleMouseLeave(): void {
     if (this.pauseOnHover) {
       this.startCloseTimer();
@@ -144,13 +174,13 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:visibilitychange')
+  @HostListener("document:visibilitychange")
   handleVisibilityChange(): void {
     if (!this.pauseOnVisibilityChange) {
       return;
     }
 
-    if (document.visibilityState !== 'visible') {
+    if (document.visibilityState !== "visible") {
       this.pauseCloseTimer();
       this._cd.detectChanges();
     } else {
