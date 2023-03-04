@@ -26,6 +26,7 @@ import { throttle, throttleTime } from "rxjs/operators";
 })
 export class ToastifyToastComponent implements OnInit, OnDestroy {
   @ViewChild("progressBar") progressBar: ElementRef<HTMLElement>;
+  @ViewChild("progressBarCover") progressBarCover: ElementRef<HTMLElement>;
 
   @Input() autoClose = 5000;
   @Input() hideProgressBar = false;
@@ -75,8 +76,8 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     const frame = () => {
       if (this.running) {
         const remainingTime = Math.max(0, this.expectedAutoDismissTime - new Date().getTime());
-        const percentage = (remainingTime / this.autoClose) * 100;
-        this.progressBar.nativeElement.style.width = percentage + "%";
+        const percentage = 100 - ((remainingTime / this.autoClose) * 100);
+        this.progressBarCover.nativeElement.style.width = percentage + "%";
         if (percentage <= 0) return;
       }
       this._progressBarAnimation = requestAnimationFrame(frame);
