@@ -21,6 +21,7 @@ export class DemoPageComponent  {
   disableAutoClose = false;
   hideProgress = false;
   newestOnTop = false;
+  preventDuplicates = false;
   closeOnClick = true;
   pauseDelayHover = true;
   pauseVisibilityChange = true;
@@ -62,5 +63,9 @@ export class DemoPageComponent  {
     this.addErrorToast();
     this.addSuccessToast();
     this.addDefaultToast();
+  }
+
+  addConstantToast() {
+    this._toastService.default('This is a toast message with constant text');
   }
 }
