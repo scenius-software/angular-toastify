@@ -1,6 +1,7 @@
 <div class="toast-container toast-container--{{position}}">
     <lib-toastify-toast *ngFor="let toast of toasts" [class]="getClass(toast)" style="animation-fill-mode: both; animation-duration: 0.75s"
-        [autoClose]="autoClose" [toast]="toast" (dismissEvent)="dismiss(toast)" [hideProgressBar]="hideProgressBar" [pauseOnHover]="pauseOnHover"
+        [autoClose]="autoClose" [autoCloseSuccess]="this.autoCloseSuccess" [autoCloseError]="this.autoCloseError" [autoCloseWarn]="this.autoCloseWarn" 
+        [autoCloseInfo]="this.autoCloseInfo" [toast]="toast" (dismissEvent)="dismiss(toast)" [hideProgressBar]="hideProgressBar" [pauseOnHover]="pauseOnHover"
         [pauseOnVisibilityChange]="pauseOnVisibilityChange" [closeOnClick]="closeOnClick" [iconLibrary]="iconLibrary">
     </lib-toastify-toast>
 </div>
