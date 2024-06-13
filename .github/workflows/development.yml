@@ -23,7 +23,7 @@ jobs:
         run: |
           npm ci
           npm uninstall -g @angular/cli
-          npm install -g @angular/cli
+          npm install -g @angular/cli@12
       - name: Set Version
         run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$BUILD_NUMBER/g" ./version.ts
       - name: Build Library
