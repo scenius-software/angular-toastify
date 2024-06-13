@@ -28,7 +28,11 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   @ViewChild("progressBar") progressBar: ElementRef<HTMLElement>;
   @ViewChild("progressBarCover") progressBarCover: ElementRef<HTMLElement>;
 
-  @Input() autoClose = 5000;
+  @Input() autoClose = 5000;  
+  @Input() autoCloseError = undefined;
+  @Input() autoCloseSuccess = undefined;
+  @Input() autoCloseInfo = undefined;
+  @Input() autoCloseWarn = undefined;
   @Input() hideProgressBar = false;
   @Input() pauseOnHover = true;
   @Input() pauseOnVisibilityChange = true;
@@ -54,7 +58,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   constructor(private _cd: ChangeDetectorRef, private _zone: NgZone) {}
 
   ngOnInit(): void {
-    this.autoCloseRemaining = this.autoClose;
+    this.autoCloseRemaining = this.autoCloseAfterSpecificChange();
     this.startTime = this.toast.time;
     this.toast.$resetToast.subscribe(() => this.resetToastTimer());
     // Do not start timer when toast is prompted while window is out of focus
@@ -76,7 +80,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     const frame = () => {
       if (this.running) {
         const remainingTime = Math.max(0, this.expectedAutoDismissTime - new Date().getTime());
-        const percentage = 100 - ((remainingTime / this.autoClose) * 100);
+        const percentage = 100 - ((remainingTime / this.autoCloseAfterSpecificChange()) * 100);
         this.progressBarCover.nativeElement.style.width = percentage + "%";
         if (percentage <= 0) return;
       }
@@ -101,7 +105,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   }
 
   startCloseTimer(): void {
-    if (this.running || !this.autoClose) {
+    if (this.running || !this.autoCloseAfterSpecificChange()) {
       return;
     }
 
@@ -118,6 +122,25 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     );
   }
 
+  autoCloseAfterSpecificChange(): number {
+    const specificAmount = (() => {
+      switch (this.toast.type) {
+        case ToastType.success:
+          return this.autoCloseSuccess;
+        case ToastType.error:
+          return this.autoCloseError;
+        case ToastType.warning:
+          return this.autoCloseWarn;
+        case ToastType.info:
+          return this.autoCloseInfo;
+        default:
+          return undefined;
+      }
+    })();
+
+    return specificAmount === undefined ? this.autoClose : specificAmount;
+  }
+
   pauseCloseTimer(): void {
     this.running = false;
     this.clearTimerTimeout();
@@ -125,14 +148,14 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     // Calculate the elapsed time, subtract remaining time
     this.pauseTime = new Date().getTime();
     const elapsed = this.pauseTime - this.startTime;
-    this.autoCloseRemaining = this.autoClose - elapsed;
+    this.autoCloseRemaining = this.autoCloseAfterSpecificChange() - elapsed;
   }
 
   resetToastTimer() {
     this.clearTimerTimeout();
     this.running = false;
     this.startTime = new Date().getTime();
-    this.autoCloseRemaining = this.autoClose;
+    this.autoCloseRemaining = this.autoCloseAfterSpecificChange();
     this.startCloseTimer();
   }
 

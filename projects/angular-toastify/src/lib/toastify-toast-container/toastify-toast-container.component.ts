@@ -16,6 +16,10 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
   @Input() position: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left' = 'top-right';
   @Input() transition: 'bounce' | 'slide' | 'zoom' | 'flip' = 'bounce';
   @Input() autoClose = 5000;
+  @Input() autoCloseError = undefined;
+  @Input() autoCloseSuccess = undefined;
+  @Input() autoCloseInfo = undefined;
+  @Input() autoCloseWarn = undefined;
   @Input() hideProgressBar = false;
   @Input() pauseOnHover = true;
   @Input() pauseOnVisibilityChange = true;
