@@ -16,10 +16,12 @@
         </span>
     </div>
     <div class="toast-container">
-        <span>{{toast.message}}</span>
+        <div>{{toast.message}}</div>
+    </div>
+    <div class="close-container">
+      <button (click)="handleDismissButtonAction()" class="close-button close-button--{{ToastType[toast.type]}}" type="button" aria-label="close">✖</button>
     </div>
 </div>
-<button (click)="handleDismissButtonAction()" class="close-button close-button--{{ToastType[toast.type]}}" type="button" aria-label="close">✖</button>
 
 <div #progressBar *ngIf="!hideProgressBar" class="progress-bar progress-bar&#45;&#45;{{ToastType[toast.type]}}" style="opacity: 1;"></div>
 <div #progressBarCover *ngIf="!hideProgressBar" class="progress-bar-cover toast--{{ToastType[toast.type]}}" [style.animation-duration]="this.autoCloseAfterSpecificChange() + 'ms'"  [style.animation-play-state]="running? 'running' : 'paused'"></div>

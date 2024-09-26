@@ -1,5 +1,9 @@
 # Changelog
 
+##### 1.0.8
+
+- Changed handling of large toast bodies. This should address [#54](https://github.com/scenius-software/angular-toastify/issues/54).
+
 ##### 1.0.7
 
 - Added auto close overrides per toast type. See [!57](https://github.com/scenius-software/angular-toastify/pull/53). Credits go to [@MaxvandenHout](https://github.com/MaxvandenHout) for implementing this feature.

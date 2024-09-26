@@ -10,11 +10,16 @@
 /* Separate React Toastify TM styling from new styling in order upgrade them separately */
 
 .toast-body {
+    min-width: 0;
+    min-height: 0;
     vertical-align: middle;
+    display: flex;
 }
 
 .icon-container {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 25px;
     vertical-align: middle;
 
@@ -36,7 +41,16 @@
 }
 
 .toast-container {
-    display: inline-block;
     width: calc(100% - 25px);
-    vertical-align: middle;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+
+  > div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
