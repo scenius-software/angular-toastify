@@ -11,24 +11,22 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { ToastType } from "../toast-type";
-import { Toast } from "../toast";
-import { interval } from "rxjs";
-import { throttle, throttleTime } from "rxjs/operators";
+} from '@angular/core';
+import { ToastType } from '../toast-type';
+import { Toast } from '../toast';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "lib-toastify-toast",
-  templateUrl: "./toastify-toast.component.html",
-  styleUrls: ["./toastify-toast.component.scss"],
+  selector: 'lib-toastify-toast',
+  templateUrl: './toastify-toast.component.html',
+  styleUrls: ['./toastify-toast.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastifyToastComponent implements OnInit, OnDestroy {
-  @ViewChild("progressBar") progressBar: ElementRef<HTMLElement>;
-  @ViewChild("progressBarCover") progressBarCover: ElementRef<HTMLElement>;
+  @ViewChild('progressBar') progressBar: ElementRef<HTMLElement>;
+  @ViewChild('progressBarCover') progressBarCover: ElementRef<HTMLElement>;
 
-  @Input() autoClose = 5000;  
+  @Input() autoClose = 5000;
   @Input() autoCloseError = undefined;
   @Input() autoCloseSuccess = undefined;
   @Input() autoCloseInfo = undefined;
@@ -38,7 +36,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
   @Input() pauseOnVisibilityChange = true;
   @Input() closeOnClick = true;
   @Input() toast: Toast;
-  @Input() iconLibrary: "material" | "font-awesome" | "none";
+  @Input() iconLibrary: 'material' | 'font-awesome' | 'none';
 
   @Output() dismissEvent = new EventEmitter();
 
@@ -62,7 +60,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     this.startTime = this.toast.time;
     this.toast.$resetToast.subscribe(() => this.resetToastTimer());
     // Do not start timer when toast is prompted while window is out of focus
-    if (this.handleVisibilityChange && document.visibilityState === "visible") {
+    if (this.handleVisibilityChange && document.visibilityState === 'visible') {
       this.startCloseTimer();
     }
 
@@ -81,8 +79,8 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
       if (this.running) {
         const remainingTime = Math.max(0, this.expectedAutoDismissTime - new Date().getTime());
         const percentage = 100 - ((remainingTime / this.autoCloseAfterSpecificChange()) * 100);
-        this.progressBarCover.nativeElement.style.width = percentage + "%";
-        if (percentage <= 0) return;
+        this.progressBarCover.nativeElement.style.width = percentage + '%';
+        if (percentage <= 0) { return; }
       }
       this._progressBarAnimation = requestAnimationFrame(frame);
     };
@@ -175,7 +173,7 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     this.dismissEvent.emit();
   }
 
-  @HostListener("click")
+  @HostListener('click')
   handleHostClick(): void {
     if (this.closeOnClick) {
       this.clearTimerTimeout();
@@ -183,14 +181,14 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener("mouseenter")
+  @HostListener('mouseenter')
   handleMouseEnter(): void {
     if (this.pauseOnHover) {
       this.pauseCloseTimer();
     }
   }
 
-  @HostListener("mouseleave")
+  @HostListener('mouseleave')
   handleMouseLeave(): void {
     if (this.pauseOnHover) {
       this.startCloseTimer();
@@ -198,13 +196,13 @@ export class ToastifyToastComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener("document:visibilitychange")
+  @HostListener('document:visibilitychange')
   handleVisibilityChange(): void {
     if (!this.pauseOnVisibilityChange) {
       return;
     }
 
-    if (document.visibilityState !== "visible") {
+    if (document.visibilityState !== 'visible') {
       this.pauseCloseTimer();
       this._cd.detectChanges();
     } else {

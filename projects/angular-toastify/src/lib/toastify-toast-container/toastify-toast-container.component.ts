@@ -48,12 +48,12 @@ export class ToastifyToastContainerComponent implements OnInit, OnChanges {
   }
 
   getClass(toast: Toast): string {
-    let base = `toast toast--${ToastType[toast.type]} `;
+    let base = `angular-toastify-toast angular-toastify-toast--${ToastType[toast.type]} `;
     const state = this.toastTransitionDict[toast.id];
     if (state === TransitionState.entering) {
-      base += `${this.transition}-enter ${this.transition}-enter--${this.position}`;
+      base += `angular-toastify-${this.transition}-enter angular-toastify-${this.transition}-enter--${this.position}`;
     } else if (state === TransitionState.exiting) {
-      base += `${this.transition}-exit ${this.transition}-exit--${this.position}`;
+      base += `angular-toastify-${this.transition}-exit angular-toastify-${this.transition}-exit--${this.position}`;
     }
 
     return base;
