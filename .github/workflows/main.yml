@@ -49,7 +49,7 @@ jobs:
           npm install -g @angular/cli@12
       - name: Deploy pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAGES_SECRET }}
         run: |
           ng build --base-href "/angular-toastify/"
           npx angular-cli-ghpages --dir=dist/demo
