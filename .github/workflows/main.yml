@@ -2,35 +2,33 @@ name: CI Master
 
 on:
   push:
-    branches:
-      - 'dev-2.0.0'
-#    tags:
-#      - '*'
+    tags:
+      - '*'
 
 jobs:
-#  build-library:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v1
-#      - name: Setup node
-#        uses: actions/setup-node@v1
-#        with:
-#          node-version: "14"
-#          registry-url: https://registry.npmjs.org
-#      - name: Install dependencies
-#        run: |
-#          npm ci
-#          npm uninstall -g @angular/cli
-#          npm install -g @angular/cli@12
-#      - name: Set Version
-#        run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$GITHUB_RUN_NUMBER/g" ./version.ts
-#      - name: Build Library
-#        run: ng build --project angular-toastify
-#      - name: Publish Library to NPM
-#        run: npm publish ./dist/angular-toastify
-#        env:
-#          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+  build-library:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm uninstall -g @angular/cli
+          npm install -g @angular/cli@12
+      - name: Set Version
+        run: sed -i "s/\[ci-version\]/${GITHUB_REF##*/}-$GITHUB_RUN_NUMBER/g" ./version.ts
+      - name: Build Library
+        run: ng build --project angular-toastify
+      - name: Publish Library to NPM
+        run: npm publish ./dist/angular-toastify
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 
   deploy-pages:
     runs-on: ubuntu-latest
