@@ -51,5 +51,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAGES_SECRET }}
         run: |
+          sed -i 's/\[\[VERSION\]\]/$GITHUB_REF_NAME/g' ./projects/demo/src/environments/environment.prod.ts
+          sed -i 's/\[\[BUILD_DATE\]\]/$(git log -1 --format=%cd --date=format:%Y%m%dh%H%M%S)/g' ./projects/demo/src/environments/environment.prod.ts
           ng build --base-href "/angular-toastify/"
           npx angular-cli-ghpages --repo=https://github.com/scenius-software/angular-toastify.git --dir=dist/demo --name="Scenius Software Engineering" --email="support@scenius.nl"

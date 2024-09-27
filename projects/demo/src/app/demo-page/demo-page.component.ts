@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastType } from 'projects/angular-toastify/src/lib/toast-type';
 import { ToastService } from '../../../../angular-toastify/src/lib/toast.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-demo-page',
@@ -25,6 +26,7 @@ export class DemoPageComponent  {
   closeOnClick = true;
   pauseDelayHover = true;
   pauseVisibilityChange = true;
+  environment = environment;
 
 
   constructor(private _toastService: ToastService) { }
