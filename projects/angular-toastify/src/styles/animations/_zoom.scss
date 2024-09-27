@@ -1,4 +1,4 @@
-@keyframes zoomIn {
+@keyframes angular-toastify-zoomIn {
     from {
         opacity: 0;
         transform: scale3d(0.3, 0.3, 0.3);
@@ -8,7 +8,7 @@
     }
 }
 
-@keyframes zoomOut {
+@keyframes angular-toastify-zoomOut {
     from {
         opacity: 1;
     }
@@ -21,10 +21,10 @@
     }
 }
 
-.zoom-enter {
-    animation-name: zoomIn;
+.angular-toastify-zoom-enter {
+    animation-name: angular-toastify-zoomIn;
 }
 
-.zoom-exit {
-    animation-name: zoomOut;
+.angular-toastify-zoom-exit {
+    animation-name: angular-toastify-zoomOut;
 }

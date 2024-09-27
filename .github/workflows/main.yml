@@ -2,8 +2,8 @@ name: CI Master
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
   build-library:
@@ -29,3 +29,27 @@ jobs:
         run: npm publish ./dist/angular-toastify
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+
+  deploy-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: |
+          npm ci --force
+          npm uninstall -g @angular/cli
+          npm install -g @angular/cli@12
+      - name: Deploy pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAGES_SECRET }}
+        run: |
+          sed -i "s/\[\[VERSION\]\]/$GITHUB_REF_NAME/g" ./projects/demo/src/environments/environment.prod.ts
+          sed -i "s/\[\[BUILD_DATE\]\]/$(git log -1 --format=%cd --date=format:%Y%m%dh%H%M%S)/g" ./projects/demo/src/environments/environment.prod.ts
+          ng build --configuration=production --base-href "/angular-toastify/"
+          npx angular-cli-ghpages --repo=https://github.com/scenius-software/angular-toastify.git --dir=dist/demo --name="Scenius Software Engineering" --email="support@scenius.nl"

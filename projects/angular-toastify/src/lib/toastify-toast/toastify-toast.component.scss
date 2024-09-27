@@ -9,14 +9,14 @@
 
 /* Separate React Toastify TM styling from new styling in order upgrade them separately */
 
-.toast-body {
+.angular-toastify-toast-body {
     min-width: 0;
     min-height: 0;
     vertical-align: middle;
     display: flex;
 }
 
-.icon-container {
+.angular-toastify-icon-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,14 +35,17 @@
     }
 }
 
-.material-icons,
-.fa {
+.angular-toastify-toast-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
 }
 
-.toast-container {
+.angular-toastify-toast-container {
     width: calc(100% - 25px);
-    overflow-y: scroll;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     min-height: 0;

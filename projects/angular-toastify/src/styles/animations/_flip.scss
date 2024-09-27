@@ -1,4 +1,4 @@
-@keyframes flipIn {
+@keyframes angular-toastify-flipIn {
     from {
         transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
         animation-timing-function: ease-in;
@@ -20,7 +20,7 @@
     }
 }
 
-@keyframes flipOut {
+@keyframes angular-toastify-flipOut {
     from {
         transform: perspective(400px);
     }
@@ -34,10 +34,10 @@
     }
 }
 
-.flip-enter {
-    animation-name: flipIn;
+.angular-toastify-flip-enter {
+    animation-name: angular-toastify-flipIn;
 }
 
-.flip-exit {
-    animation-name: flipOut;
+.angular-toastify-flip-exit {
+    animation-name: angular-toastify-flipOut;
 }

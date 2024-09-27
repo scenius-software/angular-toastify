@@ -1,50 +1,50 @@
-@mixin transform {
+@mixin angular-toastify-transform {
     transform: translate3d(0, 0, 0);
 }
 
-@keyframes slideInRight {
+@keyframes angular-toastify-slideInRight {
     from {
         transform: translate3d(110%, 0, 0);
         visibility: visible;
     }
     to {
-        @include transform;
+        @include angular-toastify-transform;
     }
 }
 
-@keyframes slideInLeft {
+@keyframes angular-toastify-slideInLeft {
     from {
         transform: translate3d(-110%, 0, 0);
         visibility: visible;
     }
     to {
-        @include transform;
+        @include angular-toastify-transform;
     }
 }
 
-@keyframes slideInUp {
+@keyframes angular-toastify-slideInUp {
     from {
         transform: translate3d(0, 110%, 0);
         visibility: visible;
     }
     to {
-        @include transform;
+        @include angular-toastify-transform;
     }
 }
 
-@keyframes slideInDown {
+@keyframes angular-toastify-slideInDown {
     from {
         transform: translate3d(0, -110%, 0);
         visibility: visible;
     }
     to {
-        @include transform;
+        @include angular-toastify-transform;
     }
 }
 
-@keyframes slideOutRight {
+@keyframes angular-toastify-slideOutRight {
     from {
-        @include transform;
+        @include angular-toastify-transform;
     }
     to {
         visibility: hidden;
@@ -52,9 +52,9 @@
     }
 }
 
-@keyframes slideOutLeft {
+@keyframes angular-toastify-slideOutLeft {
     from {
-        @include transform;
+        @include angular-toastify-transform;
     }
     to {
         visibility: hidden;
@@ -62,9 +62,9 @@
     }
 }
 
-@keyframes slideOutDown {
+@keyframes angular-toastify-slideOutDown {
     from {
-        @include transform;
+        @include angular-toastify-transform;
     }
     to {
         visibility: hidden;
@@ -72,9 +72,9 @@
     }
 }
 
-@keyframes slideOutUp {
+@keyframes angular-toastify-slideOutUp {
     from {
-        @include transform;
+        @include angular-toastify-transform;
     }
     to {
         visibility: hidden;
@@ -82,36 +82,36 @@
     }
 }
 
-.slide-enter {
+.angular-toastify-slide-enter {
     &--top-left,
     &--bottom-left {
-        animation-name: slideInLeft;
+        animation-name: angular-toastify-slideInLeft;
     }
     &--top-right,
     &--bottom-right {
-        animation-name: slideInRight;
+        animation-name: angular-toastify-slideInRight;
     }
     &--top-center {
-        animation-name: slideInDown;
+        animation-name: angular-toastify-slideInDown;
     }
     &--bottom-center {
-        animation-name: slideInUp;
+        animation-name: angular-toastify-slideInUp;
     }
 }
 
-.slide-exit {
+.angular-toastify-slide-exit {
     &--top-left,
     &--bottom-left {
-        animation-name: slideOutLeft;
+        animation-name: angular-toastify-slideOutLeft;
     }
     &--top-right,
     &--bottom-right {
-        animation-name: slideOutRight;
+        animation-name: angular-toastify-slideOutRight;
     }
     &--top-center {
-        animation-name: slideOutUp;
+        animation-name: angular-toastify-slideOutUp;
     }
     &--bottom-center {
-        animation-name: slideOutDown;
+        animation-name: angular-toastify-slideOutDown;
     }
 }

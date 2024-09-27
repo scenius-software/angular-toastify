@@ -1,27 +1,74 @@
-<div role="alert" class="toast-body">
-    <div class="icon-container">
+<div role="alert" class="angular-toastify-toast-body">
+  <div class="angular-toastify-icon-container">
         <span *ngIf="iconLibrary == 'material'" [ngSwitch]="toast.type">
-            <i class="material-icons" *ngSwitchCase="ToastType.info">info_outline</i>
-            <i class="material-icons" *ngSwitchCase="ToastType.default">info_outline</i>
-            <i class="material-icons" *ngSwitchCase="ToastType.warning">warning_outline</i>
-            <i class="material-icons" *ngSwitchCase="ToastType.error">error_outline</i>
-            <i class="material-icons" *ngSwitchCase="ToastType.success">done</i>
+            <i class="angular-toastify-toast-icon" *ngSwitchCase="ToastType.info">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+                     fill="#fff"><path
+                  d="M430.09-270.8h101.34V-528H430.09v257.2Zm49.52-338.03q20.94 0 35.34-14.01 14.4-14.01 14.4-34.95 0-20.94-14.01-35.34-14.01-14.39-34.95-14.39-20.94 0-35.34 14.01-14.4 14.01-14.4 34.95 0 20.94 14.01 35.34 14.01 14.39 34.95 14.39Zm.67 548.18q-86.64 0-163.19-32.66-76.56-32.66-133.84-89.94t-89.94-133.8q-32.66-76.51-32.66-163.41 0-87.15 32.72-163.31t90.14-133.61q57.42-57.44 133.79-89.7 76.38-32.27 163.16-32.27 87.14 0 163.31 32.26 76.16 32.26 133.61 89.71 57.45 57.45 89.71 133.86 32.26 76.42 32.26 163.33 0 86.91-32.27 163.08-32.26 76.18-89.7 133.6-57.45 57.42-133.83 90.14-76.39 32.72-163.27 32.72Zm-.33-105.18q131.13 0 222.68-91.49 91.54-91.49 91.54-222.63 0-131.13-91.49-222.68-91.49-91.54-222.63-91.54-131.13 0-222.68 91.49-91.54 91.49-91.54 222.63 0 131.13 91.49 222.68 91.49 91.54 222.63 91.54ZM480-480Z"/></svg>
+            </i>
+            <i class="angular-toastify-toast-icon" *ngSwitchCase="ToastType.default">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+                     fill="#aaa"><path
+                  d="M430.09-270.8h101.34V-528H430.09v257.2Zm49.52-338.03q20.94 0 35.34-14.01 14.4-14.01 14.4-34.95 0-20.94-14.01-35.34-14.01-14.39-34.95-14.39-20.94 0-35.34 14.01-14.4 14.01-14.4 34.95 0 20.94 14.01 35.34 14.01 14.39 34.95 14.39Zm.67 548.18q-86.64 0-163.19-32.66-76.56-32.66-133.84-89.94t-89.94-133.8q-32.66-76.51-32.66-163.41 0-87.15 32.72-163.31t90.14-133.61q57.42-57.44 133.79-89.7 76.38-32.27 163.16-32.27 87.14 0 163.31 32.26 76.16 32.26 133.61 89.71 57.45 57.45 89.71 133.86 32.26 76.42 32.26 163.33 0 86.91-32.27 163.08-32.26 76.18-89.7 133.6-57.45 57.42-133.83 90.14-76.39 32.72-163.27 32.72Zm-.33-105.18q131.13 0 222.68-91.49 91.54-91.49 91.54-222.63 0-131.13-91.49-222.68-91.49-91.54-222.63-91.54-131.13 0-222.68 91.49-91.54 91.49-91.54 222.63 0 131.13 91.49 222.68 91.49 91.54 222.63 91.54ZM480-480Z"/></svg>
+            </i>
+            <i class="angular-toastify-toast-icon" *ngSwitchCase="ToastType.warning">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff"><path d="M-3.28-104.15 480-911.43l483.28 807.28H-3.28Zm483.83-137.63q19.97 0 34.23-14.05 14.26-14.05 14.26-34.02 0-19.74-14.05-34-14.05-14.26-34.02-14.26-19.73 0-34.11 14.05-14.38 14.05-14.38 33.78 0 19.98 14.17 34.24 14.17 14.26 33.9 14.26Zm-46.88-138.7h94.18v-192.89h-94.18v192.89Z"/></svg>
+            </i>
+            <i class="angular-toastify-toast-icon" *ngSwitchCase="ToastType.error">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff"><path d="M479.56-266.26q21.83 0 36.89-14.61 15.05-14.62 15.05-36.45 0-21.83-14.61-37.01-14.62-15.17-36.45-15.17-21.83 0-36.89 14.79-15.05 14.79-15.05 36.62t14.61 36.83q14.62 15 36.45 15Zm-51.39-167.02h105.18v-250.55H428.17v250.55Zm52.11 372.63q-86.64 0-163.19-32.66-76.56-32.66-133.84-89.94t-89.94-133.8q-32.66-76.51-32.66-163.41 0-87.15 32.72-163.31t90.14-133.61q57.42-57.44 133.79-89.7 76.38-32.27 163.16-32.27 87.14 0 163.31 32.26 76.16 32.26 133.61 89.71 57.45 57.45 89.71 133.86 32.26 76.42 32.26 163.33 0 86.91-32.27 163.08-32.26 76.18-89.7 133.6-57.45 57.42-133.83 90.14-76.39 32.72-163.27 32.72Zm-.33-105.18q131.13 0 222.68-91.49 91.54-91.49 91.54-222.63 0-131.13-91.49-222.68-91.49-91.54-222.63-91.54-131.13 0-222.68 91.49-91.54 91.49-91.54 222.63 0 131.13 91.49 222.68 91.49 91.54 222.63 91.54ZM480-480Z"/></svg>
+            </i>
+            <i class="angular-toastify-toast-icon" *ngSwitchCase="ToastType.success">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff"><path d="M389-240.7 166.93-461.76l74.27-75.26L389-388.98l331.57-330.56 74.26 74.02L389-240.7Z"/></svg>
+            </i>
         </span>
-        <span *ngIf="iconLibrary == 'font-awesome'" [ngSwitch]="toast.type">
-            <i *ngSwitchCase="ToastType.info" class="fa fa-info"></i>
-            <i *ngSwitchCase="ToastType.default" class="fa fa-info"></i>
-            <i *ngSwitchCase="ToastType.warning" class="fa fa-exclamation-triangle"></i>
-            <i *ngSwitchCase="ToastType.error" class="fa fa-exclamation"></i>
-            <i *ngSwitchCase="ToastType.success" class="fa fa-check"></i>
+    <span *ngIf="iconLibrary == 'font-awesome'" [ngSwitch]="toast.type">
+            <i *ngSwitchCase="ToastType.info" class="angular-toastify-toast-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" height="18" fill="#fff">>
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 224 32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 512c-17.7 0-32-14.3-32-32s14.3-32 32-32l32 0 0-192-32 0c-17.7 0-32-14.3-32-32z"/>
+              </svg>
+            </i>
+            <i *ngSwitchCase="ToastType.default" class="angular-toastify-toast-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" height="18" fill="#aaa">>
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 224 32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 512c-17.7 0-32-14.3-32-32s14.3-32 32-32l32 0 0-192-32 0c-17.7 0-32-14.3-32-32z"/>
+              </svg>
+            </i>
+            <i *ngSwitchCase="ToastType.warning" class="angular-toastify-toast-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="18" fill="#fff">>
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/>
+              </svg>
+            </i>
+            <i *ngSwitchCase="ToastType.error" class="angular-toastify-toast-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" height="18" fill="#fff">
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M96 64c0-17.7-14.3-32-32-32S32 46.3 32 64l0 256c0 17.7 14.3 32 32 32s32-14.3 32-32L96 64zM64 480a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/>
+              </svg>
+            </i>
+            <i *ngSwitchCase="ToastType.success" class="angular-toastify-toast-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="18" fill="#fff">>
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+              </svg>
+            </i>
         </span>
-    </div>
-    <div class="toast-container">
-        <div>{{toast.message}}</div>
-    </div>
-    <div class="close-container">
-      <button (click)="handleDismissButtonAction()" class="close-button close-button--{{ToastType[toast.type]}}" type="button" aria-label="close">✖</button>
-    </div>
+  </div>
+  <div class="angular-toastify-toast-container">
+    <div>{{ toast.message }}</div>
+  </div>
+  <div class="close-container">
+    <button (click)="handleDismissButtonAction()"
+            class="angular-toastify-close-button angular-toastify-close-button--{{ToastType[toast.type]}}" type="button"
+            aria-label="close">✖
+    </button>
+  </div>
 </div>
 
-<div #progressBar *ngIf="!hideProgressBar" class="progress-bar progress-bar&#45;&#45;{{ToastType[toast.type]}}" style="opacity: 1;"></div>
-<div #progressBarCover *ngIf="!hideProgressBar" class="progress-bar-cover toast--{{ToastType[toast.type]}}" [style.animation-duration]="this.autoCloseAfterSpecificChange() + 'ms'"  [style.animation-play-state]="running? 'running' : 'paused'"></div>
+<div #progressBar *ngIf="!hideProgressBar"
+     class="angular-toastify-progress-bar angular-toastify-progress-bar&#45;&#45;{{ToastType[toast.type]}}"
+     style="opacity: 1;"></div>
+<div #progressBarCover *ngIf="!hideProgressBar"
+     class="angular-toastify-progress-bar-cover angular-toastify-toast--{{ToastType[toast.type]}}"
+     [style.animation-duration]="this.autoCloseAfterSpecificChange() + 'ms'"
+     [style.animation-play-state]="running? 'running' : 'paused'"></div>
