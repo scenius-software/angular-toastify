@@ -52,4 +52,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAGES_SECRET }}
         run: |
           ng build --base-href "/angular-toastify/"
-          npx angular-cli-ghpages --dir=dist/demo --name="Scenius Software Engineering" --email="support@scenius.nl"
+          npx angular-cli-ghpages --repo=https://github.com/scenius-software/angular-toastify.git --dir=dist/demo --name="Scenius Software Engineering" --email="support@scenius.nl"
