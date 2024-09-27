@@ -1,5 +1,10 @@
 # Changelog
 
+##### 2.0.0
+
+- ⚠️ Breaking: Re-scoped all Angular Toastify CSS classed by prefixing them with `angular-toastify-`. This should prevent other CSS frameworks from interfering with Angular Toastify its styling. This may fix [#17](https://github.com/scenius-software/angular-toastify/issues/17) and [#48](https://github.com/scenius-software/angular-toastify/issues/48)
+- Removed optional dependency on Angular Material icons and/or font-awesome icons. Icons are now included as SVGs instead.
+
 ##### 1.0.8
 
 - Changed handling of large toast bodies. This should address [#54](https://github.com/scenius-software/angular-toastify/issues/54).
