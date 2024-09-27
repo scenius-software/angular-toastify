@@ -15,7 +15,7 @@ export class DemoPageComponent  {
   position = 'top-right';
 
   iconLibraries = ['none', 'material', 'font-awesome'];
-  iconLibrary = 'material';
+  iconLibrary = 'font-awesome';
   ToastType = ToastType;
   autoClose = 5000;
   disableAutoClose = false;
