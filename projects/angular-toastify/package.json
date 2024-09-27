@@ -1,6 +1,6 @@
 {
   "name": "angular-toastify",
-  "version": "2.0.0",
+  "version": "2.0.0-dev1",
   "description": "Somewhat working clone of React Toastify.",
   "author": "Scenius",
   "repository": {
